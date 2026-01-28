@@ -534,6 +534,142 @@
             box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
         }
 
+        /* Password Modal */
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 238, 248, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .password-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .password-modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(214, 51, 132, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .password-modal.show .password-modal-content {
+            transform: scale(1);
+        }
+
+        .password-modal h2 {
+            color: #d63384;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .password-modal p {
+            color: #a0526d;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(214, 51, 132, 0.3);
+            border-radius: 15px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            color: #8b4a6b;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #d63384;
+            box-shadow: 0 0 0 3px rgba(214, 51, 132, 0.1);
+        }
+
+        .password-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .password-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 300;
+        }
+
+        .password-btn.submit {
+            background: linear-gradient(135deg, #d63384, #ff69b4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+        }
+
+        .password-btn.submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.4);
+        }
+
+        .password-btn.cancel {
+            background: rgba(139, 74, 107, 0.2);
+            color: #8b4a6b;
+        }
+
+        .password-btn.cancel:hover {
+            background: rgba(139, 74, 107, 0.3);
+        }
+
+        .password-error {
+            color: #d63384;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .password-error.show {
+            opacity: 1;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
         /* Music Control Button */
         .music-control {
             position: fixed;
@@ -696,23 +832,37 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 250px;
+            grid-auto-flow: dense;
+            gap: 1.5rem;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 0;
+            padding: 2rem;
         }
 
         .gallery-item {
             position: relative;
             overflow: hidden;
             border-radius: 20px;
-            aspect-ratio: 1;
             opacity: 0;
             transform: scale(0.8) translateY(50px);
             transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             box-shadow: 0 10px 30px rgba(214, 51, 132, 0.2);
             cursor: pointer;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-item.large {
+            grid-row: span 2;
+            grid-column: span 2;
         }
 
         .gallery-item.visible {
@@ -786,39 +936,107 @@
 
         /* Messages Section */
         .messages-container {
-            max-width: 900px;
+            max-width: 1200px;
             width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+            align-items: start;
         }
 
-        .message-card {
+        .message-video-card {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            padding: 2rem;
+            padding: 1rem;
             border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 20px rgba(214, 51, 132, 0.15);
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.2);
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
 
-        .message-card.visible {
+        .message-video-card.landscape {
+            aspect-ratio: 16/9;
+            grid-column: span 1;
+        }
+
+        .message-video-card.portrait {
+            aspect-ratio: 9/16;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* On larger screens, let landscape span more if appropriate, or just keep it balanced */
+        @media (min-width: 992px) {
+            .messages-container {
+                grid-template-columns: repeat(3, 1fr);
+                /* Ensure 3 columns for portraits */
+            }
+
+            .message-video-card.landscape {
+                grid-column: 1 / -1;
+                /* Make landscape prominent on top */
+                max-width: 800px;
+                margin: 0 auto;
+            }
+        }
+
+        .message-video-card.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .message-card h3 {
-            color: #d63384;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
+        .message-video-card video {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.1);
         }
 
-        .message-card p {
-            color: #8b4a6b;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin: 0;
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffe5f1 0%, #ffd6e8 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #d63384;
+            border: 2px dashed #ffb3d9;
+        }
+
+        .video-placeholder span {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .messages-container {
+                grid-template-columns: 1fr;
+            }
+
+            .message-video-card.landscape,
+            .message-video-card.portrait {
+                aspect-ratio: auto;
+                min-height: 400px;
+                width: 100%;
+            }
+
+            .message-video-card.portrait {
+                aspect-ratio: 9/16;
+            }
+
+            .message-video-card.landscape {
+                aspect-ratio: 16/9;
+            }
         }
 
         /* Our Page Section */
@@ -849,6 +1067,307 @@
             font-size: 1.8rem;
             margin-bottom: 1rem;
             font-weight: 300;
+        }
+
+        /* Responsive gallery */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .gallery-title {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .music-control {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Post-Unlock Message Overlay */
+        .unlock-message-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 223, 186, 0.95) 0%, rgba(255, 182, 193, 0.95) 100%);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .unlock-message-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .unlock-message-content {
+            max-width: 800px;
+            padding: 3rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(214, 51, 132, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .unlock-message-overlay.show .unlock-message-content {
+            transform: scale(1);
+        }
+
+        .unlock-message-text {
+            font-size: 2rem;
+            color: #d63384;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            min-height: 100px;
+        }
+
+        .unlock-continue-btn {
+            background: linear-gradient(45deg, #d63384, #ff80ab);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .unlock-continue-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .unlock-continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background-color: #d63384;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .unlock-message-text {
+                font-size: 1.5rem;
+            }
+
+            .unlock-message-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+        }
+
+
+        /* Our Page - Magazine Layout */
+        .magazine-container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(214, 51, 132, 0.1);
+        }
+
+        .mag-hero {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mag-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+
+        .mag-hero-title {
+            position: absolute;
+            font-size: 5rem;
+            color: white;
+            font-weight: 300;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .mag-row {
+            display: flex;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            align-items: center;
+        }
+
+        .mag-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .mag-text-block {
+            flex: 1;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .mag-text-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mag-text-block h3 {
+            font-size: 2.5rem;
+            color: #d63384;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            border-bottom: 1px solid rgba(214, 51, 132, 0.2);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .mag-text-block p {
+            font-size: 1.15rem;
+            color: #8b4a6b;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .mag-text-block p::first-letter {
+            font-size: 3.5rem;
+            float: left;
+            padding: 0.5rem 0.5rem 0 0;
+            line-height: 1;
+            color: #d63384;
+            font-weight: bold;
+        }
+
+        .mag-image-block {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .mag-image-block.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .mag-image-block img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .mag-image-block:hover img {
+            transform: scale(1.05);
+        }
+
+        .mag-quote {
+            width: 100%;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            border-top: 2px solid rgba(214, 51, 132, 0.1);
+            border-bottom: 2px solid rgba(214, 51, 132, 0.1);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1s ease-out;
+        }
+
+        .mag-quote.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .mag-quote q {
+            font-size: 2.5rem;
+            color: #d63384;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .mag-quote cite {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            color: #c44569;
+            font-weight: 300;
+        }
+
+        @media (max-width: 992px) {
+
+            .mag-row,
+            .mag-row.reverse {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .mag-hero-title {
+                font-size: 3rem;
+            }
+
+            .mag-text-block p::first-letter {
+                font-size: 2.5rem;
+            }
         }
 
         /* Responsive gallery */
@@ -934,9 +1453,10 @@
         <source src="memories-music.mp3" type="audio/mpeg">
         <source src="memories-music.ogg" type="audio/ogg">
         Your browser does not support the audio element.
-    </audio>
-
-    <audio id="messagesMusic" loop>
+    </audio> <!-- Music Control Button -->
+    <button class="music-control" id="musicControl" onclick="toggleMute()" title="Toggle Mute">
+        <span id="musicIcon">🎵</span>
+    </button> <audio id="messagesMusic" loop>
         <source src="messages-music.mp3" type="audio/mpeg">
         <source src="messages-music.ogg" type="audio/ogg">
         Your browser does not support the audio element.
@@ -948,10 +1468,22 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- Music Control Button -->
-    <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Toggle Music">
-        <span id="musicIcon">🎵</span>
-    </button>
+
+
+    <!-- Password Modal -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <h2>🔒 Protected Page</h2>
+            <p>This page is password protected. Please enter the password to continue.</p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Enter password..."
+                autocomplete="off">
+            <div class="password-error" id="passwordError">Incorrect password. Please try again.</div>
+            <div class="password-buttons">
+                <button class="password-btn submit" onclick="checkPassword()">Enter</button>
+                <button class="password-btn cancel" onclick="closePasswordModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Animated Background -->
     <div class="animated-background">
@@ -983,7 +1515,7 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="header">
+    <header class="header" id="mainHeader">
         <nav>
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -1002,6 +1534,16 @@
         </nav>
     </header>
 
+    <!-- Post-Unlock Message Overlay -->
+    <div class="unlock-message-overlay" id="unlockMessageOverlay">
+        <div class="unlock-message-content">
+            <div class="unlock-message-text" id="unlockMessageText"></div>
+            <button class="unlock-continue-btn" id="unlockContinueBtn" onclick="proceedToOurPage()">Continue to Our
+                Story</button>
+        </div>
+    </div>
+
+
     <!-- Page 1: Birthday Page -->
     <div class="page active" id="birthday-page">
         <div class="container">
@@ -1012,7 +1554,8 @@
                 </p>
                 <p class="birthday-message">
                     Today is all about celebrating you and the amazing person you are.
-                    May your special day be filled with joy, laughter, and endless happiness!
+                    May your special day be filled with joy, laughter, and endless happiness! Motu
+                    Ik I am not good in making handmade cards so i made this for you. I hope you like it.
                 </p>
             </section>
         </div>
@@ -1021,25 +1564,208 @@
     <!-- Page 2: Memories Page -->
     <div class="page hidden" id="memories-page">
         <section class="gallery-section">
-            <h2 class="gallery-title">Our Beautiful Memories <span class="heart">💖</span></h2>
+            <h2 class="gallery-title">Your Beautiful Memories <span class="heart">🦖</span></h2>
             <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">📸</div>
+                <!-- 50 Photo Template with Masonry Sizes -->
+                <div class="gallery-item large">
+                    <img src="memories/memory_1.jpg" alt="Memory 1"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 1</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_2.jpg" alt="Memory 2"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 2</div>'">
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">📸</div>
+                    <img src="memories/memory_3.jpg" alt="Memory 3"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 3</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_4.jpg" alt="Memory 4"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 4</div>'">
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">📸</div>
+                    <img src="memories/memory_5.jpg" alt="Memory 5"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 5</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_6.jpg" alt="Memory 6"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 6</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_7.jpg" alt="Memory 7"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 7</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_8.jpg" alt="Memory 8"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 8</div>'">
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">📸</div>
+                    <img src="memories/memory_9.jpg" alt="Memory 9"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 9</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_10.jpg" alt="Memory 10"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 10</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_11.jpg" alt="Memory 11"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 11</div>'">
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">📸</div>
+                    <img src="memories/memory_12.jpg" alt="Memory 12"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 12</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_13.jpg" alt="Memory 13"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 13</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_14.jpg" alt="Memory 14"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 14</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_15.jpg" alt="Memory 15"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 15</div>'">
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">📸</div>
+                    <img src="memories/memory_16.jpg" alt="Memory 16"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 16</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_17.jpg" alt="Memory 17"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 17</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_18.jpg" alt="Memory 18"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 18</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_19.jpg" alt="Memory 19"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 19</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_20.jpg" alt="Memory 20"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 20</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_21.jpg" alt="Memory 21"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 21</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_22.jpg" alt="Memory 22"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 22</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_23.jpg" alt="Memory 23"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 23</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_24.jpg" alt="Memory 24"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 24</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_25.jpg" alt="Memory 25"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 25</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_26.jpg" alt="Memory 26"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 26</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_27.jpg" alt="Memory 27"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 27</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_28.jpg" alt="Memory 28"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 28</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_29.jpg" alt="Memory 29"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 29</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_30.jpg" alt="Memory 30"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 30</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_31.jpg" alt="Memory 31"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 31</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_32.jpg" alt="Memory 32"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 32</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_33.jpg" alt="Memory 33"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 33</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_34.jpg" alt="Memory 34"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 34</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_35.jpg" alt="Memory 35"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 35</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_36.jpg" alt="Memory 36"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 36</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_37.jpg" alt="Memory 37"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 37</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_38.jpg" alt="Memory 38"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 38</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_39.jpg" alt="Memory 39"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 39</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_40.jpg" alt="Memory 40"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 40</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_41.jpg" alt="Memory 41"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 41</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_42.jpg" alt="Memory 42"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 42</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_43.jpg" alt="Memory 43"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 43</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_44.jpg" alt="Memory 44"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 44</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_45.jpg" alt="Memory 45"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 45</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_46.jpg" alt="Memory 46"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 46</div>'">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="memories/memory_47.jpg" alt="Memory 47"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 47</div>'">
+                </div>
+                <div class="gallery-item wide">
+                    <img src="memories/memory_48.jpg" alt="Memory 48"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 48</div>'">
+                </div>
+                <div class="gallery-item">
+                    <img src="memories/memory_49.jpg" alt="Memory 49"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 49</div>'">
+                </div>
+                <div class="gallery-item large">
+                    <img src="memories/memory_50.jpg" alt="Memory 50"
+                        onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>📸 50</div>'">
                 </div>
             </div>
         </section>
@@ -1050,18 +1776,36 @@
         <div class="page-content">
             <h2 class="page-title">Messages for You <span class="heart">💌</span></h2>
             <div class="messages-container">
-                <div class="message-card">
-                    <h3>Special Message 1</h3>
-                    <p>You light up every room you enter and bring joy to everyone around you. Happy Birthday!</p>
+                <!-- Video 1 - Landscape -->
+                <div class="message-video-card landscape">
+                    <video controls poster="">
+                        <source src="messages/video1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="message-card">
-                    <h3>Special Message 2</h3>
-                    <p>Your kindness and beautiful smile make the world a better place. Wishing you all the happiness!
-                    </p>
+
+                <!-- Video 2 - Portrait -->
+                <div class="message-video-card portrait">
+                    <video controls poster="">
+                        <source src="messages/video2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="message-card">
-                    <h3>Special Message 3</h3>
-                    <p>Every moment with you is a treasure. May your special day be as wonderful as you are!</p>
+
+                <!-- Video 3 - Portrait -->
+                <div class="message-video-card portrait">
+                    <video controls poster="">
+                        <source src="messages/video3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <!-- Video 4 - Portrait -->
+                <div class="message-video-card portrait">
+                    <video controls poster="">
+                        <source src="messages/video4.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
@@ -1070,29 +1814,74 @@
     <!-- Page 4: Our Page -->
     <div class="page hidden" id="our-page">
         <div class="page-content">
-            <h2 class="page-title">Our Page <span class="heart">💑</span></h2>
-            <div class="our-page-content">
-                <div class="timeline-item">
-                    <h3>Our Story</h3>
-                    <p>This is where our beautiful journey together began...</p>
+            <h2 class="page-title">The Story of Us <span class="heart">💑</span></h2>
+
+            <div class="magazine-container">
+                <!-- Cover / Hero Section -->
+                <div class="mag-hero">
+                    <img src="memories/memory_2.jpg" alt="Cover Image"
+                        onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=1470'">
+                    <h1 class="mag-hero-title">Our Journey</h1>
                 </div>
-                <div class="timeline-item">
-                    <h3>Special Moments</h3>
-                    <p>Every moment we've shared has been magical and unforgettable...</p>
+
+                <!-- First Row: Text Left, Image Right -->
+                <div class="mag-row">
+                    <div class="mag-text-block">
+                        <h3>How It Started</h3>
+                        <p>It feels like it was just yesterday when we first met. Everything was so simple yet so
+                            profound. The way we connected over the smallest things, the shared laughs, and the instant
+                            comfort we found in each other's presence. Every word spoken back then was a seed planted
+                            for the beautiful garden of memories we have today. You were a mystery I couldn't wait to
+                            solve, and today, you're the home I always want to come back to.</p>
+                    </div>
+                    <div class="mag-image-block">
+                        <img src="memories/memory_1.jpg" alt="Early Days"
+                            onerror="this.src='https://images.unsplash.com/photo-1522673607200-164883214c4f?auto=format&fit=crop&q=80&w=1170'">
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <h3>Future Together</h3>
-                    <p>Looking forward to creating many more beautiful memories together...</p>
+
+                <!-- Pull Quote -->
+                <div class="mag-quote">
+                    <q>In all the world, there is no heart for me like yours. In all the world, there is no love for you
+                        like mine.</q>
+                    <cite>— Maya Angelou</cite>
+                </div>
+
+                <!-- Second Row: Image Left, Text Right -->
+                <div class="mag-row reverse">
+                    <div class="mag-text-block">
+                        <h3>Unforgettable Days</h3>
+                        <p>From the long walks in the park to the quiet evenings spent just being near each other, every
+                            second has been a blessing. We've weathered storms and basked in the sunshine together. Your
+                            strength inspires me, and your kindness humbles me. I remember the way the light caught your
+                            eyes that one afternoon – a moment frozen in time that still brings a smile to my face.
+                            These are the days I live for, the moments that define who we are.</p>
+                    </div>
+                    <div class="mag-image-block">
+                        <img src="memories/memory_4.jpg" alt="Happy Times"
+                            onerror="this.src='https://images.unsplash.com/photo-1511733847602-c2cd7469551d?auto=format&fit=crop&q=80&w=1170'">
+                    </div>
+                </div>
+
+                <!-- Third Row: Text Full Width or Centered -->
+                <div class="mag-row" style="justify-content: center;">
+                    <div class="mag-text-block" style="text-align: center; max-width: 800px;">
+                        <h3>Our Future Together</h3>
+                        <p>As we celebrate another year of your beautiful life, I look forward to the countless
+                            adventures still waiting for us. There are so many places to see, so many stories to tell,
+                            and a lifetime of love to share. You are my partner, my best friend, and my greatest love.
+                            Thank you for being you, for loving me, and for making every day feel like a feature story
+                            in the magazine of my heart. Happy Birthday, my love.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Music Control for Multiple Pages
-        let isMusicPlaying = false;
-        let isMuted = false;
+        // Music Management
         let currentPage = 'birthday';
+        let isMuted = false;
 
         const audioElements = {
             'birthday': document.getElementById('birthdayMusic'),
@@ -1107,16 +1896,14 @@
         // Set volume for all audio elements
         Object.values(audioElements).forEach(audio => {
             if (audio) {
-                audio.volume = 0.5; // Set volume to 50%
+                audio.volume = 0.5;
             }
         });
 
-        // Get current audio element
         function getCurrentAudio() {
             return audioElements[currentPage];
         }
 
-        // Stop all audio
         function stopAllAudio() {
             Object.values(audioElements).forEach(audio => {
                 if (audio) {
@@ -1126,97 +1913,64 @@
             });
         }
 
-        // Play music for current page
         function playPageMusic(pageId) {
             stopAllAudio();
             currentPage = pageId;
             const currentAudio = getCurrentAudio();
-
-            if (!currentAudio) return;
-
-            // Apply muted state to new audio
-            currentAudio.muted = isMuted;
-
-            // If music was playing before, continue playing on new page
-            if (isMusicPlaying && !isMuted) {
-                currentAudio.play().then(() => {
-                    musicControl.classList.add('playing');
-                    musicControl.classList.remove('muted');
-                    musicIcon.textContent = '🎵';
-                }).catch(error => {
-                    console.log('Play failed:', error);
+            if (currentAudio) {
+                currentAudio.muted = isMuted;
+                currentAudio.play().catch(error => {
+                    console.log('Autoplay prevented or failed:', error);
                 });
-            } else if (isMuted) {
-                // Keep muted state
-                musicControl.classList.add('muted');
-                musicControl.classList.remove('playing');
-                musicIcon.textContent = '🔇';
             }
         }
 
-        // Initialize music on page load
-        window.addEventListener('DOMContentLoaded', () => {
+        function toggleMute() {
+            isMuted = !isMuted;
             const currentAudio = getCurrentAudio();
-            if (currentAudio) {
-                try {
-                    currentAudio.play().then(() => {
-                        isMusicPlaying = true;
-                        musicControl.classList.add('playing');
-                        musicIcon.textContent = '🎵';
-                    }).catch(() => {
-                        // Autoplay was prevented, user will need to click to start
-                        musicIcon.textContent = '🔇';
-                        musicControl.classList.add('muted');
-                    });
-                } catch (error) {
-                    console.log('Autoplay prevented:', error);
+
+            // Update all audio elements state
+            Object.values(audioElements).forEach(audio => {
+                if (audio) {
+                    audio.muted = isMuted;
+                }
+            });
+
+            // Update UI
+            if (isMuted) {
+                musicIcon.textContent = '🔇';
+                musicControl.classList.add('muted');
+            } else {
+                musicIcon.textContent = '🎵';
+                musicControl.classList.remove('muted');
+                if (currentAudio && currentAudio.paused) {
+                    currentAudio.play().catch(e => console.log("Play failed on unmute:", e));
                 }
             }
-        });
+        }
 
-        // Toggle music play/pause and mute/unmute
-        function toggleMusic() {
+        // Initialize music on page load or interaction
+        function startMusic() {
             const currentAudio = getCurrentAudio();
-            if (!currentAudio) return;
-
-            if (!isMusicPlaying && currentAudio.paused) {
-                // Start playing
-                currentAudio.play().then(() => {
-                    isMusicPlaying = true;
-                    isMuted = false;
-                    musicControl.classList.remove('muted');
-                    musicControl.classList.add('playing');
-                    musicIcon.textContent = '🎵';
-                }).catch(error => {
-                    console.log('Play failed:', error);
-                });
-            } else if (isMuted) {
-                // Unmute
-                currentAudio.muted = false;
-                isMuted = false;
-                musicControl.classList.remove('muted');
-                musicControl.classList.add('playing');
-                musicIcon.textContent = '🎵';
-            } else {
-                // Mute
-                currentAudio.muted = true;
-                isMuted = true;
-                musicControl.classList.add('muted');
-                musicControl.classList.remove('playing');
-                musicIcon.textContent = '🔇';
+            if (currentAudio && currentAudio.paused) {
+                currentAudio.muted = isMuted;
+                currentAudio.play().catch(e => console.log("Start playback failed:", e));
             }
         }
 
-        // Handle audio errors for all audio elements
+        window.addEventListener('scroll', startMusic, { once: true });
+        window.addEventListener('click', startMusic, { once: true });
+        window.addEventListener('touchstart', startMusic, { once: true });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            startMusic();
+        });
+
+        // Handle audio errors
         Object.entries(audioElements).forEach(([page, audio]) => {
             if (audio) {
                 audio.addEventListener('error', (e) => {
                     console.log(`Audio error for ${page}:`, e);
-                    if (page === currentPage) {
-                        musicIcon.textContent = '🔇';
-                        musicControl.classList.add('muted');
-                        musicControl.title = `Music file not found. Please add ${page}-music.mp3 to the folder.`;
-                    }
                 });
             }
         });
@@ -1258,7 +2012,150 @@
         });
 
         // Page Navigation Function
+        // Password protection
+        const CORRECT_PASSWORD = 'iluiluilu'; // Change this to your desired password
+        let isPasswordVerified = false;
+
+        function showPasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordError = document.getElementById('passwordError');
+
+            modal.classList.add('show');
+            passwordInput.value = '';
+            passwordError.classList.remove('show');
+            passwordInput.focus();
+        }
+
+        function closePasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            modal.classList.remove('show');
+        }
+
+        function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordError = document.getElementById('passwordError');
+            const enteredPassword = passwordInput.value.trim().toLowerCase();
+
+            if (enteredPassword === CORRECT_PASSWORD.toLowerCase()) {
+                isPasswordVerified = true;
+                closePasswordModal();
+
+                // Show the post-unlock animated message
+                showUnlockMessage();
+            } else {
+                passwordError.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+                // Shake animation
+                passwordInput.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    passwordInput.style.animation = '';
+                }, 500);
+            }
+        }
+
+        function showUnlockMessage() {
+            const overlay = document.getElementById('unlockMessageOverlay');
+            const messageElement = document.getElementById('unlockMessageText');
+            const continueBtn = document.getElementById('unlockContinueBtn');
+
+            // The text will be given by the user, using a placeholder for now
+            const message = "You've unlocked a treasure chest of our memories. Every page here is a piece of my heart, dedicated to you. Let's walk through our story together...";
+
+            overlay.classList.add('show');
+
+            // Typing animation logic
+            let i = 0;
+            messageElement.innerHTML = '';
+            const cursor = document.createElement('span');
+            cursor.className = 'typing-cursor';
+            messageElement.appendChild(cursor);
+
+            function typeWriter() {
+                if (i < message.length) {
+                    const char = message.charAt(i);
+                    const textNode = document.createTextNode(char);
+                    messageElement.insertBefore(textNode, cursor);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                } else {
+                    // Animation finished
+                    cursor.style.display = 'none';
+                    continueBtn.classList.add('visible');
+                }
+            }
+
+            setTimeout(typeWriter, 500);
+        }
+
+        function proceedToOurPage() {
+            const overlay = document.getElementById('unlockMessageOverlay');
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                navigateToOurPage();
+            }, 500);
+        }
+
+        // Allow Enter key to submit password and Escape to close modal
+        document.addEventListener('DOMContentLoaded', () => {
+            const passwordInput = document.getElementById('passwordInput');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+
+            // Close modal on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const modal = document.getElementById('passwordModal');
+                    if (modal && modal.classList.contains('show')) {
+                        closePasswordModal();
+                    }
+                }
+            });
+        });
+
+        function navigateToOurPage() {
+            const pageId = 'our-page';
+            const allPages = document.querySelectorAll('.page');
+            allPages.forEach(page => {
+                page.classList.remove('active');
+                page.classList.add('hidden');
+            });
+
+            playPageMusic(pageId);
+
+            setTimeout(() => {
+                const targetPage = document.getElementById(pageId + '-page');
+                if (targetPage) {
+                    targetPage.classList.remove('hidden');
+                    targetPage.classList.add('active');
+                }
+
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.textContent === 'Our Page') {
+                        link.classList.add('active');
+                    }
+                });
+
+                animateOurPage();
+            }, 100);
+        }
+
         function goToPage(pageId) {
+            // Check if trying to access Our Page
+            if (pageId === 'our-page' && !isPasswordVerified) {
+                showPasswordModal();
+                return;
+            }
+
             // Hide all pages
             const allPages = document.querySelectorAll('.page');
             allPages.forEach(page => {
@@ -1331,7 +2228,7 @@
         // Animate messages page
         function animateMessages() {
             const pageTitle = document.querySelector('#messages-page .page-title');
-            const messageCards = document.querySelectorAll('.message-card');
+            const messageCards = document.querySelectorAll('.message-video-card');
 
             if (pageTitle) {
                 pageTitle.classList.remove('visible');
@@ -1351,7 +2248,7 @@
         // Animate our page
         function animateOurPage() {
             const pageTitle = document.querySelector('#our-page .page-title');
-            const timelineItems = document.querySelectorAll('.timeline-item');
+            const magElements = document.querySelectorAll('.mag-text-block, .mag-image-block, .mag-quote');
 
             if (pageTitle) {
                 pageTitle.classList.remove('visible');
@@ -1360,10 +2257,10 @@
                 }, 200);
             }
 
-            timelineItems.forEach((item, index) => {
-                item.classList.remove('visible');
+            magElements.forEach((el, index) => {
+                el.classList.remove('visible');
                 setTimeout(() => {
-                    item.classList.add('visible');
+                    el.classList.add('visible');
                 }, 400 + (index * 200));
             });
         }
